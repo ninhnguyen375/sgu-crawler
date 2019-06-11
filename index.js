@@ -4,8 +4,8 @@ const cheerio = require('cheerio');
 const readline = require('readline');
 
 //------------ Just edit here
-const INITIAL_STUDENT_ID = 3117410000;
-const COLLECTION_NAME = CNTT_K17;
+const INITIAL_STUDENT_ID = 3118410000;
+const COLLECTION_NAME = "CNTT_K18";
 
 // ----------------------------------------------------------------------------------
 let STUDENT_DATA = [];
