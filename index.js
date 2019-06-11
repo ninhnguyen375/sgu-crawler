@@ -5,7 +5,7 @@ const readline = require('readline');
 
 //------------ Just edit here
 const INITIAL_STUDENT_ID = 3118410000;
-const COLLECTION_NAME = "CNTT_K18";
+const COLLECTION_NAME = 'CNTT_K18';
 
 // ----------------------------------------------------------------------------------
 let STUDENT_DATA = [];
@@ -89,7 +89,8 @@ const getData = async mssv => {
       diem.push(hk);
     }
     let HKGanNhat = Object.values(diem[diem.length - 1]);
-    let diemHe4TichLuy = HKGanNhat[HKGanNhat.length - 1];
+    let diemHe4TichLuy = HKGanNhat[HKGanNhat.length - 1] || '0';
+
     data = { diemHe4TichLuy, ...data, diem };
 
     if (!isEmpty(data)) {
