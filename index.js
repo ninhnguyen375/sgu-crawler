@@ -6,6 +6,7 @@ const readline = require('readline');
 //------------ Just edit here
 const INITIAL_STUDENT_ID = 3118410000;
 const COLLECTION_NAME = 'CNTT_K18';
+const FILE_DATA_PATH = './data.json';
 
 // ----------------------------------------------------------------------------------
 let STUDENT_DATA = [];
@@ -65,17 +66,17 @@ const getData = async mssv => {
     const $ = await cheerio.load(content);
 
     // crawl something
-    const soHK = $('.row-diemTK .Label').length / 14;
+    const soHK = $('.row-diemTK .Label').length / 12;
     let data = { ...thongTinCaNhan };
     let diem = [];
 
     for (let i = 1; i <= soHK; i++) {
       let hk = { HK: i };
 
-      for (let j = 0; j <= 7; j++) {
+      for (let j = 0; j <= 6; j++) {
         if (j % 2 === 0) {
-          const keyIndex = 14 * (i - 1) + j;
-          const valueIndex = 14 * (i - 1) + j + 1;
+          const keyIndex = 12 * (i - 1) + j;
+          const valueIndex = 12 * (i - 1) + j + 1;
           hk = {
             ...hk,
             [$('.row-diemTK .Label')
@@ -108,7 +109,7 @@ const fullCrawl = async () => {
     await getData(i);
   }
 
-  fs.writeFile('./data.json', JSON.stringify(STUDENT_DATA), err => {
+  fs.writeFile(FILE_DATA_PATH, JSON.stringify(STUDENT_DATA), err => {
     err && console.log(err);
   });
   console.log('done');
@@ -116,7 +117,7 @@ const fullCrawl = async () => {
 };
 
 const reCrawl = async () => {
-  fs.readFile('./data.json', 'utf-8', async (err, data) => {
+  fs.readFile(FILE_DATA_PATH, 'utf-8', async (err, data) => {
     if (err) console.error(err);
     else {
       let students = JSON.parse(data);
@@ -127,7 +128,7 @@ const reCrawl = async () => {
       }
       students = [...students, ...STUDENT_DATA];
 
-      fs.writeFile('./data.json', JSON.stringify(students), err => {
+      fs.writeFile(FILE_DATA_PATH, JSON.stringify(students), err => {
         err && console.log(err);
       });
     }
@@ -150,7 +151,7 @@ const rl = readline.createInterface({
 });
 
 const appendDataToDB = () => {
-  fs.readFile('./data.json', 'utf-8', (err, data) => {
+  fs.readFile(FILE_DATA_PATH, 'utf-8', (err, data) => {
     if (err) console.error(err);
     else {
       let students = JSON.parse(data);
@@ -212,7 +213,7 @@ rl.question(
   answer => {
     if (answer === '1') fullCrawl();
     if (answer === '2') reCrawl();
-    if (answer === '3') getDataLength('./data.json');
+    if (answer === '3') getDataLength(FILE_DATA_PATH);
     if (answer === '4') appendDataToDB();
 
     rl.close();
