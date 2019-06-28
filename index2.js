@@ -4,9 +4,9 @@ const cheerio = require('cheerio');
 const readline = require('readline');
 
 //------------ Just edit here
-const INITIAL_STUDENT_ID = 3117380000;
-const COLLECTION_NAME = 'NNA_K17';
-const FILE_DATA_PATH = 'nna_k17.json';
+const INITIAL_STUDENT_ID = 3118010000;
+const COLLECTION_NAME = 'SP_Toan_K18';
+const FILE_DATA_PATH = 'SP_Toan_K18.json';
 
 // ----------------------------------------------------------------------------------
 let STUDENT_DATA = [];
@@ -130,7 +130,9 @@ const reCrawl = async () => {
         }
       }
       students = [...students, ...STUDENT_DATA];
+
       console.log('Length:', students.length);
+
       fs.writeFile(FILE_DATA_PATH, JSON.stringify(students), err => {
         err && console.log(err);
       });
@@ -205,7 +207,6 @@ const layDiemHe4TichLuy = () => {
     }
   });
 };
-
 const removeStudent = mssv => {
   fs.readFile(FILE_DATA_PATH, 'utf-8', (err, data) => {
     if (err) console.error(err);
@@ -218,7 +219,6 @@ const removeStudent = mssv => {
     }
   });
 };
-
 console.log('INITIAL_STUDENT_ID: ', INITIAL_STUDENT_ID);
 console.log('COLLECTION_NAME: ', COLLECTION_NAME);
 console.log('FILE_DATA_PATH: ', FILE_DATA_PATH);
